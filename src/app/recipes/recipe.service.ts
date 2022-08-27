@@ -8,24 +8,26 @@ import { Recipe } from "./recipe.model";
 export class RecipeService {
     recipeChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
-        new Recipe(
-            'Tteokbokki',
-            'Korean dish',
-            'https://chefatulya.com/wp-content/uploads/2021/07/tteokbokki_1-copy.jpg',
-            [
-                new Ingredient('Meat', 1),
-                new Ingredient('French Fries', 20)
-            ]),
-        new Recipe(
-            'Burger',
-            'Whopper',
-            'https://images.indulgexpress.com/uploads/user/imagelibrary/2019/9/10/original/Chicken_Whopper.png',
-            [
-                new Ingredient('Buns', 2),
-                new Ingredient('Meat', 1)
-            ])
-    ];
+    private recipes: Recipe[] = [];
+
+    // private recipes: Recipe[] = [
+    //     new Recipe(
+    //         'Tteokbokki',
+    //         'Korean dish',
+    //         'https://chefatulya.com/wp-content/uploads/2021/07/tteokbokki_1-copy.jpg',
+    //         [
+    //             new Ingredient('Meat', 1),
+    //             new Ingredient('French Fries', 20)
+    //         ]),
+    //     new Recipe(
+    //         'Burger',
+    //         'Whopper',
+    //         'https://images.indulgexpress.com/uploads/user/imagelibrary/2019/9/10/original/Chicken_Whopper.png',
+    //         [
+    //             new Ingredient('Buns', 2),
+    //             new Ingredient('Meat', 1)
+    //         ])
+    // ];
 
     constructor(private shoppingListService: ShoppingListService) {
 
@@ -43,6 +45,11 @@ export class RecipeService {
 
     deleteRecipe(index: number) {
         this.recipes.splice(index, 1);
+        this.recipeChanged.next(this.recipes.slice());
+    }
+
+    setRecipes(recipes: Recipe[]) {
+        this.recipes = recipes;
         this.recipeChanged.next(this.recipes.slice());
     }
 
