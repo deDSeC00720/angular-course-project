@@ -13,13 +13,13 @@ export class DataStorageService {
 
     storeRecipes() {
         const recipes = this.recipeService.getRecipes();
-        this.http.put('https://angular-backend-a51bc-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json', recipes).subscribe(response => {
+        this.http.put('https://angular-course-7a484-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json', recipes).subscribe(response => {
             console.log(response);
         });
     }
 
     fetchRecipes() {
-        return this.http.get<Recipe[]>('https://angular-backend-a51bc-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json').pipe(map(recipes => {
+        return this.http.get<Recipe[]>('https://angular-course-7a484-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json').pipe(map(recipes => {
             return recipes.map(recipe => {
                 return { ...recipe, ingredients: recipe.ingredients ? recipe.ingredients : [] };
             });
